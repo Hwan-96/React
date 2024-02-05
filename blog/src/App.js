@@ -89,4 +89,8 @@ function Modal(){
 3. state에 따라 어떻게 보일지 작성
 */
 
+/* 
+리액프 깃 커밋
+*/
+
 export default App;
