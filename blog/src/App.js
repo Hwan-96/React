@@ -46,11 +46,17 @@ function App() {
         <p>2월 17일 발행</p>
       </div> */}
 
+      <div className="black-nav">
+        <h4>ReactBlog</h4>
+      </div>
+
         {
           글제목.map(function(a, i){
             return (
               <div className='list'>
-                <h4>{ 글제목[i] }
+                <h4 onClick={()=>{
+                  setModal(!modal);
+                }}>{ 글제목[i] }
                   <span onClick={ ()=>{
                     let like = [...추천];
                     like[i] = like[i] + 1;
@@ -63,18 +69,24 @@ function App() {
           })
         }
 
-        {modal == true ? <Modal/> : null}
+        {modal == true ? <Modal 글제목={글제목}/> : null}
         
     </div>
   );
 }
 
-function Modal(){
+// props 전송 부모 > 자식 만 가능, 자식 > 부모 안됨, 자식 > 자식 안됨
+function Modal(props){
   return (
-    <div className='modal'>
-      <h4>제목</h4>
+    <div className='modal' style={{background : props.color}}>
+      <h4>{props.글제목[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={()=>{
+        let copy = [props.글제목[0]];
+        copy[0] = '여자 코트 추천'
+        // 글제목변경(copy);
+      }}>글수정</button>
     </div>
   )
 }
