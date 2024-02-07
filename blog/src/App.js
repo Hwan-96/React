@@ -36,12 +36,31 @@ function App() {
                   } }>👍</span>{ 추천[i] }
                 </h4>
                 <p>2월 17일 발행</p>
+                <button onClick={()=>{
+                  /* let deleteTitle = [...글제목];
+                  deleteTitle[i] = "";
+                  글제목변경(deleteTitle);
+                  console.log(deleteTitle); --> 글제목만 지워짐 */
+                  
+                  let deleteTitle = [...글제목];
+                  deleteTitle.splice(i,1); // 위 주석처럼 공백을 둘 것이 아닌 splice 함수를 사용해 배열에서 아이템을 지워야함. (i,1) 변수와 숫자를 적으면 됨
+                  글제목변경(deleteTitle);
+                  console.log(deleteTitle);
+                }}>삭제</button>
               </div>
             )
           })
         }
 
-        <input onChange={(e)=>{ 입력변경(e.target.value); console.log(입력값); }}></input>
+        <input onChange={(e)=>{
+          입력변경(e.target.value);
+          console.log(입력값);
+          }}></input>
+          <button onClick={()=>{
+            글제목변경(글제목.concat(입력값)); // state변경함수(기존state.concat(입력state)); > concat 함수 : 배열에 추가하는 함수
+            // 글제목변경([...글제목, 입력값]); state 먼저 카피 > 카피에 입력값 > state변경함수 적용
+            console.log(글제목);
+          }}>글발행</button>
 
         {modal == true ? <Modal 글제목={글제목} 글제목변경 = {글제목변경} modalTitle={modalTitle}/> : null}
         
