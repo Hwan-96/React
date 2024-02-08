@@ -8,11 +8,49 @@ function App() {
   let [modal, setModal] = useState(false);
   let [modalTitle, setModalTitle] = useState(0);
   let [입력값, 입력변경] = useState(' ');
+  
+  let day = new Date().getDate();
+  let month = new Date().getMonth();
+  let year = new Date().getFullYear();
+  
+  let today = String(year) + '년' + String(month+1) + '월' + String(day) + '일';
+  let [날짜, 날짜변경] = useState([today, today, today]);
+  let [오늘, 오늘변경] = useState([0, 0, 0]);
 
   [1,2,3].map(function(a){
     return '112233'
   });
-  // map 사용법 배열 갯수만큼 한수안 코드를 실행해줌
+  // map 사용법 배열 갯수만큼 함수 안 코드를 실행해줌
+
+  /* let addPost = function(){
+    if(입력값 == '' || 입력값 == null || 입력값 == undefined){
+      alert("입력해주세요")
+    }
+    else{
+      let copy =  [...글제목];
+      copy.unshift(입력값); 
+      글제목변경(copy);
+    }
+  } */
+
+  const addPost = function () {
+    let now = new Date();
+    if(입력값.trim() === ''){ // trim 메서드는 문자열 양끝 공백을 제거함
+      alert("입력해주세요");
+    }else{
+      let copy =  [...글제목];
+      copy.unshift(입력값); 
+      글제목변경(copy);
+
+      let like = [...추천];
+      like.unshift(0);
+      추천변경(like);
+
+      let copy2 = [...날짜];
+      copy2.unshift(today);
+      날짜변경(copy2);
+    }
+  }
 
   return (
     <div className="App">
@@ -35,7 +73,7 @@ function App() {
                     추천변경(like);
                   } }>👍</span>{ 추천[i] }
                 </h4>
-                <p>2월 17일 발행</p>
+                <p>{날짜[i]}</p>
                 <button onClick={()=>{
                   /* let deleteTitle = [...글제목];
                   deleteTitle[i] = "";
@@ -54,13 +92,29 @@ function App() {
 
         <input onChange={(e)=>{
           입력변경(e.target.value);
-          console.log(입력값);
           }}></input>
-          <button onClick={()=>{
-            글제목변경(글제목.concat(입력값)); // state변경함수(기존state.concat(입력state)); > concat 함수 : 배열에 추가하는 함수
+          {/* <button onClick={()=>{
+            // 글제목변경(글제목.concat(입력값)); // state변경함수(기존state.concat(입력state)); > concat 함수 : 배열에 추가하는 함수
             // 글제목변경([...글제목, 입력값]); state 먼저 카피 > 카피에 입력값 > state변경함수 적용
+
+            // 내가한 숙제에선 concat 함수를 썼음 내거는 기존 array["남자코트추천",...] 에서 뒤에 하나씩 생성 됨, 그러나 밑에 unshift는 array[...,"남자코트추천",~~] 배열 앞쪽에 하나씩 추가됨
+
+            // let copy =  [...글제목];
+            // copy.unshift(입력값); 
+            // 글제목변경(copy);
+            
+            // if(입력값){
+            //   글제목변경(글제목.concat(입력값));
+            // }else {
+            //   // return; 리턴만 넣으면 아무 실행안됨
+            //   alert("입력") // 기능작동 확인용
+            //   --> 이렇게 하면 concat을 이용한건 되는데, unshift는 또 안됨..
+            // }
             console.log(글제목);
-          }}>글발행</button>
+          }}>글발행</button> */}
+
+          <button onClick={addPost}>글발행</button>
+          {/* 글발행 버튼 은 위에 함수로 빼두었음 */}
 
         {modal == true ? <Modal 글제목={글제목} 글제목변경 = {글제목변경} modalTitle={modalTitle}/> : null}
         
