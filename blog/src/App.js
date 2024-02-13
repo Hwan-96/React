@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
 
@@ -83,7 +83,6 @@ function App() {
                   let deleteTitle = [...글제목];
                   deleteTitle.splice(i,1); // 위 주석처럼 공백을 둘 것이 아닌 splice 함수를 사용해 배열에서 아이템을 지워야함. (i,1) 변수와 숫자를 적으면 됨
                   글제목변경(deleteTitle);
-                  console.log(deleteTitle);
                 }}>삭제</button>
               </div>
             )
@@ -118,6 +117,7 @@ function App() {
 
         {modal == true ? <Modal 글제목={글제목} 글제목변경 = {글제목변경} modalTitle={modalTitle}/> : null}
         
+        <Modal2></Modal2>
     </div>
   );
 }
@@ -149,5 +149,25 @@ function Modal(props){
 2. ui 현재 상태를 state로 저장
 3. state에 따라 어떻게 보일지 작성
 */
+
+class Modal2 extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      name : 'Kim',
+      age : 20,
+    }
+  }
+  render(){
+    return(
+      <div>
+        안녕 {this.state.age}
+        <button onClick={()=>{
+          this.setState({age : 21})
+        }}>버튼</button>
+      </div>
+    )
+  }
+}
 
 export default App;
